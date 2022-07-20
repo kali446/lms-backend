@@ -17,10 +17,20 @@ exports.signup = catchAsync(async (req, res, next) => {
   // creating a token
   const token = signToken(newUser.id);
 
+  const obj = {
+    _id: newUser._id,
+    username: newUser.username,
+    email: newUser.email,
+    role: newUser.role,
+    name: newUser.name,
+    createdAt: newUser.createdAt,
+    updatedAt: newUser.updatedAt,
+    token,
+  };
+
   res.status(201).json({
     status: "success",
-    token,
-    user: newUser,
+    user: obj,
   });
 });
 
@@ -43,10 +53,20 @@ exports.login = catchAsync(async (req, res, next) => {
   // creating a token
   const token = signToken(user.id);
 
+  const obj = {
+    _id: user._id,
+    username: user.username,
+    email: user.email,
+    role: user.role,
+    name: user.name,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+    token,
+  };
+
   res.status(200).json({
     status: "success",
-    token,
-    user,
+    user: obj,
   });
 });
 
@@ -83,9 +103,7 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // 3 Send it to users email
-  const resetURL = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/auth/reset-password/${resetToken}`;
+  const resetURL = `${process.env.FRONTEND_URL}reset-password/${resetToken}`;
 
   const message = `Forgot your password ? Click on the reset link "${resetURL}" to reset your password`;
 
