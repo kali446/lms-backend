@@ -1,5 +1,5 @@
 const catchAsync = require("../utils/catchAsync");
-const User = require("../models/userModel");
+const User = require("../models/user");
 const AppError = require("../utils/appError");
 const sendEmail = require("../services/email");
 const crypto = require("crypto");
