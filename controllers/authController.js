@@ -81,12 +81,9 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.confirmPassword = req.body.confirmPassword;
   await user.save();
 
-  const token = signToken(user.id);
-
   res.status(200).json({
     status: "success",
-    token,
-    user,
+    message: "Password updated",
   });
 });
 

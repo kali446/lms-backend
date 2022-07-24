@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cloudinary = require("cloudinary");
 
 process.on("uncaughtException", (err) => {
   console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");
@@ -16,6 +17,13 @@ mongoose.connect(DB).then(() => console.log("DB connection successful!"));
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
+});
+
+// cloudinary setup
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 process.on("unhandledRejection", (err) => {

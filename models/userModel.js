@@ -21,7 +21,25 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       validate: [validator.isEmail, "Please provide a valid email"],
     },
-    avatar: String,
+    avatar: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dq87imngy/image/upload/v1653667310/defaultImage_smbzwn.png",
+    },
+    avatarPublicId: {
+      type: String,
+    },
+    cover: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dq87imngy/image/upload/v1653667310/defaultImage_smbzwn.png",
+    },
+    coverPublicId: {
+      type: String,
+    },
+    aboutMe: {
+      type: String,
+    },
     role: {
       type: String,
       enum: ["student", "admin"],
