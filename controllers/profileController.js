@@ -1,6 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/userModel");
 const AppError = require("../utils/appError");
+const cloudinary = require("cloudinary");
 
 exports.getSingleProfile = catchAsync(async (req, res, next) => {
   const userId = req.params.id;
@@ -33,6 +34,18 @@ exports.editProfile = catchAsync(async (req, res, next) => {
 
   const { name, email, avatar, cover, avatarPublicId, coverPublicId, aboutMe } =
     req.body;
+
+  if (user.avatarPublicId && avatarPublicId) {
+    await cloudinary.v2.uploader.destroy(user.avatarPublicId, {
+      resource_type: "image",
+    });
+  }
+
+  if (user.coverPublicId && coverPublicId) {
+    await cloudinary.v2.uploader.destroy(user.coverPublicId, {
+      resource_type: "image",
+    });
+  }
 
   const updateObj = {
     name,
