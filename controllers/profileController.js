@@ -12,16 +12,9 @@ exports.getSingleProfile = catchAsync(async (req, res, next) => {
     return next(new AppError("No profile found!", 404));
   }
 
-  const isMe = req.user._id.toString() === userId ? true : false;
-
-  const profileObj = {
-    isMe,
-    ...user._doc,
-  };
-
   res.status(200).json({
     status: "success",
-    data: profileObj,
+    data: user,
   });
 });
 

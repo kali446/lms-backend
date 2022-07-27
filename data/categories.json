@@ -1,8 +1,42 @@
 [
   {
+    "_id": "5c8a1d5b0190b214360dc051",
+    "name": "Javascript",
+    "featured": true
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc052",
+    "name": "React",
+    "featured": true
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc053",
+    "name": "Node",
+    "featured": true
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc054",
+    "name": "Angular",
+    "featured": true
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc055",
+    "name": "Python",
+    "featured": true
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc056",
+    "name": "React Native",
+    "featured": true
+  },
+  {
     "_id": "5c8a1d5b0190b214360dc057",
-    "name": "Nature",
-    "featured": true,
-    "iconPath": "/assets/icon.png"
+    "name": "Java",
+    "featured": true
+  },
+  {
+    "_id": "5c8a1d5b0190b214360dc058",
+    "name": "Wordpress",
+    "featured": true
   }
 ]
