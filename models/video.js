@@ -30,10 +30,12 @@ const videoSchema = new mongoose.Schema(
     creator: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: [true, "Creator is required"],
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
+      required: [true, "Category is required"],
     },
     likes: [
       {
@@ -64,6 +66,11 @@ const videoSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// populating category in video find
+videoSchema.pre("find", function () {
+  this.populate("category");
+});
 
 const Video = mongoose.model("Video", videoSchema);
 

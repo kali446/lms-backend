@@ -63,6 +63,14 @@ const userSchema = new mongoose.Schema(
 
     passwordResetToken: String,
     passwordResetExpires: Date,
+
+    // relations
+    videos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Video",
+      },
+    ],
   },
   {
     timestamps: true,

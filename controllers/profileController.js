@@ -6,7 +6,16 @@ const cloudinary = require("cloudinary");
 exports.getSingleProfile = catchAsync(async (req, res, next) => {
   const userId = req.params.id;
 
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).populate({
+    path: "videos",
+    select: [
+      "title",
+      "thumbnail",
+      "thumbnailPublicId",
+      "videoLength",
+      "videoUrlPublicId",
+    ],
+  });
 
   if (!user) {
     return next(new AppError("No profile found!", 404));

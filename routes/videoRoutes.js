@@ -12,18 +12,18 @@ router
     videoController.createVideo
   );
 router
+  .route("/delete/:id")
+  .post(
+    authMiddleware.protect,
+    authMiddleware.restrictTo("teacher"),
+    videoController.deleteVideo
+  );
+router
   .route("/:id")
   .patch(
     authMiddleware.protect,
     authMiddleware.restrictTo("teacher"),
     videoController.updateVideo
-  );
-router
-  .route("/:id")
-  .delete(
-    authMiddleware.protect,
-    authMiddleware.restrictTo("teacher"),
-    videoController.deleteVideo
   );
 
 router

@@ -1,7 +1,9 @@
 const catchAsync = require("../utils/catchAsync");
 const Video = require("../models/video");
+const User = require("../models/user");
 const AppError = require("../utils/appError");
 const VideoLike = require("../models/videoLike");
+const cloudinary = require("cloudinary");
 
 exports.getVideo = catchAsync(async (req, res, next) => {
   const videoId = req.params.id;
@@ -19,6 +21,15 @@ exports.getVideo = catchAsync(async (req, res, next) => {
 
 exports.createVideo = catchAsync(async (req, res, next) => {
   const video = await Video.create(req.body);
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    return next(new AppError("User not found", 404));
+  }
+
+  // update user with video
+  user.videos = [...user.videos, video._id];
+  await user.save();
 
   res.status(200).json({
     status: "success",
@@ -47,10 +58,28 @@ exports.updateVideo = catchAsync(async (req, res, next) => {
 exports.deleteVideo = catchAsync(async (req, res, next) => {
   const videoId = req.params.id;
   const video = await Video.findById(videoId);
+  const user = await User.findById(req.user._id);
+  const { thumbnailPublicId, videoUrlPublicId } = req.body;
 
   if (!video) {
     return next(new AppError("Video not found", 404));
   }
+
+  if (!user) {
+    return next(new AppError("User not found", 404));
+  }
+
+  // delete assets
+  await cloudinary.v2.uploader.destroy(thumbnailPublicId, {
+    resource_type: "image",
+  });
+  await cloudinary.v2.uploader.destroy(videoUrlPublicId, {
+    resource_type: "video",
+  });
+
+  // remove video from user table
+  user.videos = user.videos.filter((item) => item.toString() !== videoId);
+  await user.save();
 
   await Video.findByIdAndDelete(videoId);
 
