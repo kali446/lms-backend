@@ -9,6 +9,7 @@ const profileRoutes = require("./routes/profileRoutes");
 const videoRoutes = require("./routes/videoRoutes");
 const utilRoutes = require("./routes/utilRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const courseRoutes = require("./routes/courseRoutes");
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/util", utilRoutes);
 app.use("/api/v1/video", videoRoutes);
 app.use("/api/v1/category", categoryRoutes);
+app.use("/api/v1/course", courseRoutes);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));

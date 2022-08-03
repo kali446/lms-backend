@@ -20,9 +20,6 @@ exports.signup = catchAsync(async (req, res, next) => {
   const obj = {
     _id: newUser._id,
     username: newUser.username,
-    email: newUser.email,
-    role: newUser.role,
-    name: newUser.name,
     createdAt: newUser.createdAt,
     updatedAt: newUser.updatedAt,
     token,
@@ -56,9 +53,6 @@ exports.login = catchAsync(async (req, res, next) => {
   const obj = {
     _id: user._id,
     username: user.username,
-    email: user.email,
-    role: user.role,
-    name: user.name,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
     token,
